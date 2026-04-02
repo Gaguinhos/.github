@@ -1,4 +1,4 @@
-# Welcome to the Workspace 👋
+# Welcome to Gaguinhos 👋
 
 We're glad you're here! This is the organization's central hub. Before you start a new project, please take a moment to read through these guidelines.
 
