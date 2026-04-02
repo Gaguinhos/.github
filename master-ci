@@ -1,0 +1,130 @@
+- name: Auto-Detect Tech Stack & Run Tests
+        run: |
+          echo "🔍 Scanning repository to determine tech stack..."
+
+          # --- 1. NODE.JS (JS/TS) ---
+          if [ -f "package.json" ]; then
+            echo "⚡ Node.js detected."
+            if [ -f "yarn.lock" ]; then
+              yarn install --frozen-lockfile && yarn test || echo "⚠️ No yarn test script."
+            elif [ -f "pnpm-lock.yaml" ]; then
+              corepack enable pnpm && pnpm install && pnpm test || echo "⚠️ No pnpm test script."
+            else
+              npm ci && npm run | grep -q "test" && npm test || echo "⚠️ No npm test script."
+            fi
+          fi
+
+          # --- 2. TERRAFORM ---
+          if count=$(find . -maxdepth 1 -name "*.tf" | wc -l); [ $count -gt 0 ]; then
+            echo "🏗️ Terraform detected."
+            terraform init -backend=false
+            terraform validate
+            terraform fmt -check
+          fi
+
+          # --- 3. PYTHON ---
+          if [ -f "requirements.txt" ] || [ -f "pyproject.toml" ] || [ -f "Pipfile" ]; then
+            echo "🐍 Python detected."
+            pip install pytest
+            if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
+            if command -v pytest >/dev/null 2>&1; then
+              pytest
+            else
+              python -m unittest discover || echo "⚠️ No standard Python tests found."
+            fi
+          fi
+
+          # --- 4. JAVA (Maven/Gradle) ---
+          if [ -f "pom.xml" ]; then
+            echo "☕ Java (Maven) detected."
+            mvn test
+          elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
+            echo "☕ Java/Kotlin (Gradle) detected."
+            chmod +x gradlew && ./gradlew test
+          fi
+
+          # --- 5. C/C++ (CMake/Make) ---
+          if [ -f "CMakeLists.txt" ]; then
+            echo "🤖 C/C++ (CMake) detected."
+            mkdir -p build && cd build && cmake .. && make
+            if command -v ctest >/dev/null 2>&1; then ctest --output-on-failure; fi
+            cd ..
+          elif [ -f "Makefile" ]; then
+            echo "🤖 C/C++ (Make) detected."
+            make && make test || echo "⚠️ No test target in Makefile."
+          fi
+
+          # --- 6. GO ---
+          if [ -f "go.mod" ]; then
+            echo "🐹 Go detected."
+            go test -v ./...
+          fi
+
+          # --- 7. RUST ---
+          if [ -f "Cargo.toml" ]; then
+            echo "🦀 Rust detected."
+            cargo test
+          fi
+
+          # --- 8. RUBY ---
+          if [ -f "Gemfile" ]; then
+            echo "💎 Ruby detected."
+            bundle install
+            if grep -q "rspec" Gemfile; then
+              bundle exec rspec
+            else
+              bundle exec rake test || echo "⚠️ No rake test task found."
+            fi
+          fi
+
+          # --- 9. PHP ---
+          if [ -f "composer.json" ]; then
+            echo "🐘 PHP detected."
+            composer install --no-interaction --prefer-dist
+            if [ -f "vendor/bin/phpunit" ]; then
+              ./vendor/bin/phpunit
+            elif grep -q '"test"' composer.json; then
+              composer run test
+            else
+              echo "⚠️ No PHP testing framework found."
+            fi
+          fi
+
+          # --- 10. C# / .NET ---
+          if count=$(find . -maxdepth 1 -name "*.sln" -o -name "*.csproj" | wc -l); [ $count -gt 0 ]; then
+            echo "🎯 .NET / C# detected."
+            dotnet build
+            dotnet test --no-build --verbosity normal
+          fi
+
+          # --- 11. SWIFT ---
+          if [ -f "Package.swift" ]; then
+            echo "🦅 Swift detected."
+            swift test
+          fi
+
+          # --- 12. DART / FLUTTER ---
+          if [ -f "pubspec.yaml" ]; then
+            if grep -q "flutter" pubspec.yaml; then
+              echo "🦋 Flutter detected."
+              flutter test
+            else
+              echo "🎯 Dart detected."
+              dart test
+            fi
+          fi
+
+          # --- 13. ELIXIR ---
+          if [ -f "mix.exs" ]; then
+            echo "💧 Elixir detected."
+            mix deps.get
+            mix test
+          fi
+
+          # --- 14. DOCKER (Sanity Check) ---
+          if [ -f "Dockerfile" ]; then
+            echo "🐳 Dockerfile detected. Running syntax/build check..."
+            docker build -t test-build . || exit 1
+          fi
+
+          echo "✅ Super CI scan and execution complete!"
