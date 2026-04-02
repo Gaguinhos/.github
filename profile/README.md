@@ -6,8 +6,8 @@ We're glad you're here! This is the organization's central hub. Before you start
 
 When spinning up a new service, **please use one of the approved templates** rather than starting from scratch:
 
-- **Node.js services** → use the [`vader-node-template`](../../vader-node-template)
-- **Infrastructure / Terraform** → use the [`vader-terraform-template`](../../vader-terraform-template)
+- **Node.js services** → use the [`node-template`](../../node-template)
+- **Infrastructure / Terraform** → use the [`terraform-template`](../../terraform-template)
 
 Using these templates ensures every repository starts with the correct structure, tooling, Git hooks, and CI/CD configuration already in place.
 
