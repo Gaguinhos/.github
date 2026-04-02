@@ -17,13 +17,6 @@ Always create a branch first. Use these prefixes so we know what you're up to:
 * `docs/` — Updating READMEs or code comments.
 * `test/` — Writing tests (rare, but encouraged!).
 
-### 2. The Ritual of `setup.sh`
-Every repo in this organization should have a `.githooks` folder. To protect yourself from accidental pushes to `main`, run this command as soon as you clone a repo:
-> ```bash
-> bash setup.sh
-> ```
-*This activates the local safety net on your machine.*
-
 ---
 
 ## 🤖 The Super CI (Automatic Quality Control)
