@@ -1,22 +1,39 @@
-# Welcome to Gaguinhos 👋
+# 🐸 Gaguinhos: The Mother Ship
+### "Building cool stuff, one stutter at a time."
 
-We're glad you're here! This is the organization's central hub. Before you start a new project, please take a moment to read through these guidelines.
+Welcome to the central hub for the **Gaguinhos** workspace. This is where we host our global templates, automated bots, and the rules that keep our code from exploding.
 
-## Starting a New Service
+---
 
-When spinning up a new service, **please use one of the approved templates** rather than starting from scratch:
+## 📜 The Gaguinhos Code of Honor
+Since we aren't paying GitHub for the "Team" tier (yet), we run on trust and shared brain cells. Follow these rules to keep the vibes high and the bugs low.
 
-- **Node.js services** → use the [`node-template`](../../node-template)
-- **Infrastructure / Terraform** → use the [`terraform-template`](../../terraform-template)
+### 1. The "Main is Lava" Rule
+**Never, ever push directly to `main`.** If you do, you’re buying the next round of coffee or pizza. 
+Always create a branch first. Use these prefixes so we know what you're up to:
+* `feat/` — New cool stuff.
+* `fix/` — Fixing our mess.
+* `chore/` — Boring maintenance or dependency updates.
+* `docs/` — Updating READMEs or code comments.
+* `test/` — Writing tests (rare, but encouraged!).
 
-Using these templates ensures every repository starts with the correct structure, tooling, Git hooks, and CI/CD configuration already in place.
+### 2. The Ritual of `setup.sh`
+Every repo in this organization should have a `.githooks` folder. To protect yourself from accidental pushes to `main`, run this command as soon as you clone a repo:
+> ```bash
+> bash setup.sh
+> ```
+*This activates the local safety net on your machine.*
 
-## Getting Started
+---
 
-1. Pick the right template above and create your repository from it.
-2. Clone your new repository and run `bash setup.sh` to activate local Git hooks.
-3. Follow the project-specific README for further setup steps.
+## 🤖 The Super CI (Automatic Quality Control)
+We have a **Universal Polyglot CI** living right here in this repository. It’s smart enough to know what language you’re using and will automatically run the right tests.
 
-## Questions?
+**To hook it up to your new repo, just add this tiny file at `.github/workflows/ci.yml`:**
+```yaml
+name: Run PR Checks
+on: [pull_request]
 
-Open an issue in this repository or reach out to the maintainers. Happy coding! 🚀
+jobs:
+  call-master-workflow:
+    uses: Gaguinhos/.github/.github/workflows/master-ci.yml@main
