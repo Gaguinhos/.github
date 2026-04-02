@@ -3,25 +3,25 @@
 Before requesting a review, please confirm the following:
 
 ### 📝 Description
-### ✅ The Honor System Checklist
-- [ ] I created a feature branch for this work and did not commit directly to `main`.
-- [ ] I have done a self-review of my own code before opening this PR.
-- [ ] I have moved the corresponding card on the GitHub Project Board to "Testing".
+### 🤖 The Super CI Status
+- [ ] **The CI is Green:** I have waited for the "Universal Polyglot CI" to finish and it passed successfully.
+- [ ] **Stack Detection:** I verified in the CI logs that it correctly detected my tech stack (e.g., Node.js, Python, Terraform).
+- [ ] **Linter Check:** I checked the Super-Linter output and fixed any major style or syntax warnings.
+
+### ✅ The Gaguinhos Honor System
+- [ ] I created a feature branch (e.g., `feat/`, `fix/`) and did not push to `main`.
+- [ ] I have moved my card on the Project Board to "Testing".
 
 ### 🔒 Security & Secrets
-- [ ] I verified that no `.env` files or API keys were accidentally tracked in this commit.
-- [ ] Database connection strings (e.g., PostgreSQL credentials) are not hardcoded anywhere in the code.
-- [ ] No deployment keys or infrastructure state files (like `.tfstate`) are included in this PR.
+- [ ] I verified that no `.env` files, API keys, or hardcoded passwords are in this PR.
+- [ ] The **Gitleaks** CI check passed (no leaked secrets detected).
+- [ ] I am not exposing any internal Gaguinhos server IPs or credentials.
 
-### 🛠️ Backend & Code Quality
+### 🛠️ Code Quality
 - [ ] I have tested this code locally and it works as expected.
-- [ ] If I added new dependencies to `package.json`, they are necessary and documented.
-- [ ] Any new database schemas, migrations, or queries have been thoroughly verified.
-- [ ] I removed any unnecessary `console.log()` debugging statements.
-
-### 🏗️ Infrastructure & Deployment (If applicable)
-- [ ] I ran `terraform fmt` to format any infrastructure configuration changes.
-- [ ] Infrastructure code has been validated and runs without errors.
+- [ ] I removed all `console.log()`, `print()`, or debug statements.
+- [ ] (If applicable) I ran `terraform fmt` and `terraform validate` locally.
 
 ### 🤝 Review Request
-- [ ] I have tagged at least one teammate to review this Pull Request.
+- [ ] I have tagged at least one Gaguinho to review this.
+- [ ] I am ready to fix any feedback provided.
