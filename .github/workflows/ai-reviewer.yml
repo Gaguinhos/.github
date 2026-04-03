@@ -1,0 +1,32 @@
+name: 🤖 AI PR Reviewer
+
+# This tells the bot to ONLY wake up when a PR is opened or updated
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  ai_code_review:
+    name: Gemini PR-Agent Review
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # This is CRITICAL: It gives the bot permission to leave comments
+      contents: read
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run AI Review
+        uses: Codium-ai/pr-agent@main
+        env:
+          # Your free Google AI Studio key
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} 
+          # GitHub's built-in token so the bot can post the comment
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Tell the bot which AI brain to use
+          config.model: "gemini/gemini-1.5-flash" 
+          # Tell the bot to automatically review and describe the PR
+          github_action_config.auto_review: "true"
+          github_action_config.auto_describe: "true"
