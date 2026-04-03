@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord
+    url: https://discord.gg/your-invite-link
+    about: Join the Gaguinhos Discord to ask questions and chat with the team.
+  - name: Security Vulnerabilities
+    url: https://github.com/Gaguinhos/.github/security/policy
+    about: Please report security vulnerabilities privately.

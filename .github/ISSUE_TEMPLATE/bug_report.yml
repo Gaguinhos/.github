@@ -1,0 +1,53 @@
+name: Bug Report 🐛
+description: File a bug report to help us improve the codebase.
+title: "[BUG] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this bug. The Gaguinhos team appreciates it!
+  - type: input
+    id: version
+    attributes:
+      label: Which version of the project?
+      description: e.g. v1.0.2 or branch name.
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the problem?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. See error
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where did you encounter this bug?
+      options:
+        - Local Development
+        - Staging
+        - Production
+        - CI/CD Pipeline
+        - Unknown
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      options:
+        - label: I agree to follow Gaguinhos' Code of Conduct.
+          required: true
